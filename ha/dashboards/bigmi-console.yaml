@@ -426,7 +426,7 @@ views:
 
       - type: grid
         title: Featured Packs
-        columns: 2
+        columns: 1
         square: false
         cards:
           - type: tile
