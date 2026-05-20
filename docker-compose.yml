@@ -25,3 +25,18 @@ services:
       TOKEN: ${HA_TOKEN:-replace-me}
     volumes:
       - ./appdaemon/conf:/conf
+
+  nodered:
+    image: nodered/node-red:latest
+    container_name: bigmi-nodered
+    restart: unless-stopped
+    profiles:
+      - studio
+    depends_on:
+      - homeassistant
+    ports:
+      - "1880:1880"
+    environment:
+      TZ: Asia/Hong_Kong
+    volumes:
+      - ./nodered/data:/data

@@ -1,0 +1,21 @@
+<svg width="1600" height="420" viewBox="0 0 1600 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="420" rx="32" fill="#101A22"/>
+  <rect x="28" y="28" width="1544" height="364" rx="24" fill="url(#bg)"/>
+  <rect x="1060" y="86" width="394" height="248" rx="28" fill="#0E141A" fill-opacity="0.62" stroke="#7BDCB5" stroke-opacity="0.4"/>
+  <rect x="1098" y="126" width="138" height="92" rx="22" fill="#1B3B32"/>
+  <rect x="1256" y="126" width="158" height="92" rx="22" fill="#2A2238"/>
+  <rect x="1098" y="236" width="316" height="58" rx="18" fill="#23303B"/>
+  <text x="110" y="150" fill="#A5F1D1" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="4">BIGMI MARKETPLACE</text>
+  <text x="110" y="216" fill="#F5F8FA" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700">Install space programs</text>
+  <text x="110" y="272" fill="#D7E1E9" font-family="Helvetica, Arial, sans-serif" font-size="30">Developer-made packs with one-tap activation for care, rental, cinema, work and more.</text>
+  <text x="1120" y="178" fill="#D4FFF0" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700">Care Pack</text>
+  <text x="1276" y="178" fill="#F4E9FF" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700">Cinema Pack</text>
+  <text x="1120" y="270" fill="#BFCBD5" font-family="Helvetica, Arial, sans-serif" font-size="22">Install status, templates and launch actions live here.</text>
+  <defs>
+    <linearGradient id="bg" x1="50" y1="48" x2="1482" y2="372" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D3645"/>
+      <stop offset="0.45" stop-color="#122534"/>
+      <stop offset="1" stop-color="#23311F"/>
+    </linearGradient>
+  </defs>
+</svg>

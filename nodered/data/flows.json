@@ -1,0 +1,204 @@
+[
+  {
+    "id": "a0f7c1d3d2f10001",
+    "type": "tab",
+    "label": "Bigmi Visual Rules",
+    "disabled": false,
+    "info": "Presentation-ready Node-RED flows for Bigmi demos."
+  },
+  {
+    "id": "a0f7c1d3d2f10002",
+    "type": "comment",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Bigmi Flow Studio",
+    "info": "These flows show that Bigmi can be programmed visually, not only through Python or YAML.",
+    "x": 180,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "a0f7c1d3d2f10003",
+    "type": "inject",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Launch Rental Host Experience",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"mode\":\"rental\",\"source\":\"node-red\",\"note\":\"Visual flow launched rental experience\"}",
+    "payloadType": "json",
+    "x": 190,
+    "y": 120,
+    "wires": [
+      [
+        "a0f7c1d3d2f10009"
+      ]
+    ]
+  },
+  {
+    "id": "a0f7c1d3d2f10004",
+    "type": "inject",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Launch Cinema Experience",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"mode\":\"cinema\",\"source\":\"node-red\",\"note\":\"Visual flow launched cinema experience\"}",
+    "payloadType": "json",
+    "x": 185,
+    "y": 180,
+    "wires": [
+      [
+        "a0f7c1d3d2f10009"
+      ]
+    ]
+  },
+  {
+    "id": "a0f7c1d3d2f10005",
+    "type": "inject",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Owner Arrives Home Program",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"program\":\"owner_arrives_home\",\"source\":\"node-red\",\"note\":\"Visual flow launched the owner arrival apartment program\"}",
+    "payloadType": "json",
+    "x": 190,
+    "y": 300,
+    "wires": [
+      [
+        "a0f7c1d3d2f1000a"
+      ]
+    ]
+  },
+  {
+    "id": "a0f7c1d3d2f10006",
+    "type": "inject",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Quiet Night Program",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"program\":\"quiet_night_mode\",\"source\":\"node-red\",\"note\":\"Visual flow launched the quiet night apartment program\"}",
+    "payloadType": "json",
+    "x": 181,
+    "y": 360,
+    "wires": [
+      [
+        "a0f7c1d3d2f1000a"
+      ]
+    ]
+  },
+  {
+    "id": "a0f7c1d3d2f10007",
+    "type": "comment",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Mode webhook bridge",
+    "info": "This section calls the Bigmi runtime webhook so visual flows can launch the same mode engine used by the dashboard and blueprint demos.",
+    "x": 560,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "a0f7c1d3d2f10008",
+    "type": "comment",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Apartment webhook bridge",
+    "info": "This section calls the programmable apartment webhook so space-level flows can be expressed visually.",
+    "x": 558,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "a0f7c1d3d2f10009",
+    "type": "http request",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Send to Bigmi mode webhook",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "http://homeassistant:8123/api/webhook/bigmi_demo_scene",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 570,
+    "y": 150,
+    "wires": [
+      [
+        "a0f7c1d3d2f1000b"
+      ]
+    ]
+  },
+  {
+    "id": "a0f7c1d3d2f1000a",
+    "type": "http request",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Send to apartment program webhook",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "http://homeassistant:8123/api/webhook/bigmi_demo_house_program",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 578,
+    "y": 330,
+    "wires": [
+      [
+        "a0f7c1d3d2f1000b"
+      ]
+    ]
+  },
+  {
+    "id": "a0f7c1d3d2f1000b",
+    "type": "debug",
+    "z": "a0f7c1d3d2f10001",
+    "name": "Webhook response",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 860,
+    "y": 240,
+    "wires": []
+  }
+]

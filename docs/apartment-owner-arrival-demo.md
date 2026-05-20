@@ -1,4 +1,4 @@
-# Bigmi Apartment Demo
+# Bigmi Space Program Demo
 
 这份文档描述的是一个“可编程空间程序”而不是一组孤立设备。
 
@@ -9,7 +9,7 @@
 - `开发者友好`
 - `小型空间运营场景`
 
-## Apartment layout
+## Space layout
 
 The demo apartment contains six spaces plus a shared support layer:
 
@@ -234,7 +234,7 @@ The same script structure can later represent:
 
 ## How to run it
 
-1. Open `Bigmi Console -> Apartment`
+1. Open `Bigmi Console -> Spaces`
 2. Click `Reset Apartment`
 3. Click any scenario in `Scenario Library`
 4. Watch the room tiles change one by one

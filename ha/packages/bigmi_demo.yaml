@@ -124,6 +124,27 @@ input_boolean:
   bigmi_energy_saver_banner:
     name: Energy Saver Banner
     icon: mdi:leaf
+  bigmi_pack_elder_care_installed:
+    name: Elder Care Pack Installed
+    icon: mdi:package-variant-closed
+  bigmi_pack_rental_host_installed:
+    name: Rental Ops Pack Installed
+    icon: mdi:package-variant-closed
+    initial: true
+  bigmi_pack_quiet_night_installed:
+    name: Quiet Night Pack Installed
+    icon: mdi:package-variant-closed
+    initial: true
+  bigmi_pack_workday_installed:
+    name: Workday Pack Installed
+    icon: mdi:package-variant-closed
+  bigmi_pack_esports_installed:
+    name: Esports Pack Installed
+    icon: mdi:package-variant-closed
+    initial: true
+  bigmi_pack_cinema_installed:
+    name: Cinema Pack Installed
+    icon: mdi:package-variant-closed
 
 input_button:
   bigmi_simulate_guest_arrival:
@@ -168,6 +189,9 @@ input_button:
   bigmi_run_work_from_home_mode:
     name: Run Work From Home Mode
     icon: mdi:laptop
+  bigmi_trigger_space_guard_demo:
+    name: Trigger Space Guard Demo
+    icon: mdi:alarm-light
 
 input_select:
   bigmi_primary_ecosystem:
@@ -200,6 +224,10 @@ input_text:
   bigmi_last_room_touched:
     name: Last Room Touched
     initial: none
+    max: 255
+  bigmi_marketplace_last_install:
+    name: Marketplace Last Install
+    initial: No pack installed yet
     max: 255
 
 template:
@@ -271,7 +299,23 @@ template:
       - name: Bigmi Programmable Entry Points
         unique_id: bigmi_programmable_entry_points
         icon: mdi:vector-polyline
-        state: 4
+        state: 5
+
+      - name: Bigmi Installed Pack Count
+        unique_id: bigmi_installed_pack_count
+        icon: mdi:package-variant
+        unit_of_measurement: packs
+        state: >
+          {{
+            [
+              is_state('input_boolean.bigmi_pack_elder_care_installed', 'on'),
+              is_state('input_boolean.bigmi_pack_rental_host_installed', 'on'),
+              is_state('input_boolean.bigmi_pack_quiet_night_installed', 'on'),
+              is_state('input_boolean.bigmi_pack_workday_installed', 'on'),
+              is_state('input_boolean.bigmi_pack_esports_installed', 'on'),
+              is_state('input_boolean.bigmi_pack_cinema_installed', 'on')
+            ] | select('eq', true) | list | count
+          }}
 
       - name: Bigmi Active Apartment Devices
         unique_id: bigmi_active_apartment_devices
@@ -353,6 +397,7 @@ group:
     name: Bigmi Marketplace Lab
     entities:
       - sensor.bigmi_template_catalog_size
+      - sensor.bigmi_installed_pack_count
       - sensor.bigmi_active_experience_count
       - sensor.bigmi_approval_queue
 
@@ -364,6 +409,27 @@ group:
       - input_text.bigmi_last_runtime_channel
       - input_text.bigmi_last_program_payload
       - sensor.bigmi_programmable_entry_points
+
+  bigmi_marketplace_featured:
+    name: Bigmi Marketplace Featured
+    entities:
+      - input_boolean.bigmi_pack_elder_care_installed
+      - input_boolean.bigmi_pack_rental_host_installed
+      - input_boolean.bigmi_pack_quiet_night_installed
+      - input_boolean.bigmi_pack_workday_installed
+      - input_boolean.bigmi_pack_esports_installed
+      - input_boolean.bigmi_pack_cinema_installed
+      - input_text.bigmi_marketplace_last_install
+
+  bigmi_security_center:
+    name: Bigmi Security Center
+    entities:
+      - alarm_control_panel.bigmi_space_guard
+      - input_boolean.bigmi_safety_guard
+      - input_boolean.bigmi_sensitive_unlock_pending
+      - input_boolean.bigmi_admin_approval
+      - input_boolean.bigmi_smart_lock
+      - input_button.bigmi_trigger_space_guard_demo
 
   bigmi_apartment_controls:
     name: Apartment Controls

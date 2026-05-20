@@ -1,0 +1,18 @@
+<svg width="1600" height="420" viewBox="0 0 1600 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="420" rx="32" fill="#161215"/>
+  <rect x="28" y="28" width="1544" height="364" rx="24" fill="url(#bg)"/>
+  <path d="M1184 106L1322 72L1460 106V214C1460 284 1412 330 1322 360C1232 330 1184 284 1184 214V106Z" fill="#1F2630" stroke="#DDB670" stroke-width="10"/>
+  <path d="M1322 132V244" stroke="#DDB670" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="1322" cy="280" r="14" fill="#DDB670"/>
+  <text x="110" y="150" fill="#FFD9A0" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="4">BIGMI SECURITY CENTER</text>
+  <text x="110" y="216" fill="#F5F8FA" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700">High privilege, visibly controlled</text>
+  <text x="110" y="272" fill="#E5D7C4" font-family="Helvetica, Arial, sans-serif" font-size="30">Guard state, approvals and alarm posture are surfaced as a product experience instead of raw traces.</text>
+  <text x="1134" y="96" fill="#F1DFC0" font-family="Helvetica, Arial, sans-serif" font-size="22">Secondary approval</text>
+  <defs>
+    <linearGradient id="bg" x1="48" y1="44" x2="1498" y2="378" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#403023"/>
+      <stop offset="0.48" stop-color="#261D29"/>
+      <stop offset="1" stop-color="#1B2B30"/>
+    </linearGradient>
+  </defs>
+</svg>

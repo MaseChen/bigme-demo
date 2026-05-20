@@ -1,0 +1,24 @@
+<svg width="1600" height="420" viewBox="0 0 1600 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="420" rx="32" fill="#13181E"/>
+  <rect x="28" y="28" width="1544" height="364" rx="24" fill="url(#bg)"/>
+  <circle cx="1108" cy="130" r="28" fill="#5EE1B4"/>
+  <rect x="1184" y="98" width="178" height="64" rx="18" fill="#1A2330"/>
+  <rect x="1184" y="196" width="216" height="64" rx="18" fill="#2D1F36"/>
+  <rect x="1184" y="294" width="156" height="64" rx="18" fill="#1F2A1E"/>
+  <path d="M1136 130H1184" stroke="#5EE1B4" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1362 130H1442V228H1400" stroke="#8FD2FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1400 228H1442V326H1340" stroke="#D4A6FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="110" y="150" fill="#B1F3DE" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="4">BIGMI FLOW STUDIO</text>
+  <text x="110" y="216" fill="#F5F8FA" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700">Visual rules for every space</text>
+  <text x="110" y="272" fill="#D7E1E9" font-family="Helvetica, Arial, sans-serif" font-size="30">Node-RED joins Python, webhooks and templates as a fourth programming surface.</text>
+  <text x="1212" y="139" fill="#DCE7F2" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Trigger experience</text>
+  <text x="1212" y="237" fill="#F0E4FF" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Call house program</text>
+  <text x="1212" y="335" fill="#DDF1D6" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Trace response</text>
+  <defs>
+    <linearGradient id="bg" x1="58" y1="52" x2="1490" y2="368" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A3544"/>
+      <stop offset="0.55" stop-color="#1D2133"/>
+      <stop offset="1" stop-color="#1F3327"/>
+    </linearGradient>
+  </defs>
+</svg>

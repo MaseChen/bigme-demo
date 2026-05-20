@@ -11,6 +11,21 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
+alarm_control_panel:
+  - platform: manual
+    name: Bigmi Space Guard
+    code: "2468"
+    code_arm_required: false
+    arming_time: 8
+    delay_time: 12
+    trigger_time: 120
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      delay_time: 0
+    armed_night:
+      delay_time: 0
+
 rest_command:
   bigmi_demo_scene_webhook:
     url: http://127.0.0.1:8123/api/webhook/bigmi_demo_scene
@@ -18,6 +33,12 @@ rest_command:
     content_type: application/json
     payload: >
       {"mode":"cinema","source":"ha-rest-command","note":"Triggered from Bigmi Console local webhook demo"}
+  bigmi_demo_house_program_webhook:
+    url: http://127.0.0.1:8123/api/webhook/bigmi_demo_house_program
+    method: POST
+    content_type: application/json
+    payload: >
+      {"program":"owner_arrives_home","source":"ha-rest-command","note":"Triggered from Bigmi Console local house-program webhook demo"}
 
 lovelace:
   dashboards:

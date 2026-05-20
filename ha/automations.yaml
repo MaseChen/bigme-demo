@@ -175,3 +175,97 @@
         message: >
           Webhook accepted for mode {{ webhook_mode }} from {{ webhook_source }}.
   mode: single
+
+- id: bigmi_house_program_webhook_surface
+  alias: Bigmi House Program Webhook Surface
+  description: Accepts an external HTTP call and forwards it to the programmable apartment engine.
+  trace:
+    stored_traces: 20
+  trigger:
+    - platform: webhook
+      webhook_id: bigmi_demo_house_program
+      allowed_methods:
+        - POST
+        - PUT
+      local_only: true
+  variables:
+    webhook_program: >
+      {{
+        trigger.json.program
+        if trigger.json is mapping and 'program' in trigger.json
+        else (
+          trigger.data.program
+          if trigger.data is mapping and 'program' in trigger.data
+          else 'owner_arrives_home'
+        )
+      }}
+    webhook_source: >
+      {{
+        trigger.json.source
+        if trigger.json is mapping and 'source' in trigger.json
+        else (
+          trigger.data.source
+          if trigger.data is mapping and 'source' in trigger.data
+          else 'visual-editor'
+        )
+      }}
+    webhook_note: >
+      {{
+        trigger.json.note
+        if trigger.json is mapping and 'note' in trigger.json
+        else (
+          trigger.data.note
+          if trigger.data is mapping and 'note' in trigger.data
+          else 'Visual flow accepted by Home Assistant'
+        )
+      }}
+  action:
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_program_payload
+      data:
+        value: >
+          program={{ webhook_program }} source={{ webhook_source }} note={{ webhook_note }}
+    - event: bigmi_run_house_program
+      event_data:
+        program: "{{ webhook_program }}"
+        source: "{{ webhook_source }}"
+        note: "{{ webhook_note }}"
+    - action: persistent_notification.create
+      data:
+        title: Bigmi Visual Flow Accepted
+        message: >
+          Visual flow accepted for apartment program {{ webhook_program }} from {{ webhook_source }}.
+  mode: single
+
+- id: bigmi_space_guard_state_trace
+  alias: Bigmi Space Guard State Trace
+  description: Records changes to the security posture so the safety demo has a clean audit trail.
+  trace:
+    stored_traces: 20
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.bigmi_space_guard
+  action:
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: >
+          Space Guard changed to {{ trigger.to_state.state }}
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_program_payload
+      data:
+        value: >
+          alarm={{ trigger.to_state.state }} changed_by={{ trigger.to_state.attributes.changed_by if trigger.to_state else 'unknown' }}
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ trigger.to_state.state == 'triggered' }}"
+          sequence:
+            - action: persistent_notification.create
+              data:
+                title: Bigmi Security Center
+                message: Space Guard has been triggered for the safety presentation demo.
+  mode: single

@@ -141,6 +141,11 @@ bigmi_trigger_local_webhook_demo:
   sequence:
     - action: rest_command.bigmi_demo_scene_webhook
 
+bigmi_trigger_local_house_program_webhook:
+  alias: Bigmi Trigger Local House Program Webhook Demo
+  sequence:
+    - action: rest_command.bigmi_demo_house_program_webhook
+
 bigmi_run_owner_arrives_home_program:
   alias: Bigmi Run Owner Arrives Home Program
   sequence:
@@ -230,3 +235,137 @@ bigmi_run_work_from_home_mode:
         program: work_from_home_mode
         source: apartment-dashboard
         note: Activated work from home mode from the apartment scenario library
+
+bigmi_install_elder_care_pack:
+  alias: Bigmi Install Elder Care Pack
+  sequence:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_pack_elder_care_installed
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_marketplace_last_install
+      data:
+        value: Installed Elder Care Pack from the Bigmi Marketplace shell
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Marketplace installed Elder Care Pack
+
+bigmi_install_rental_host_pack:
+  alias: Bigmi Install Rental Host Pack
+  sequence:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_pack_rental_host_installed
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_marketplace_last_install
+      data:
+        value: Installed Rental Host Pack from the Bigmi Marketplace shell
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Marketplace installed Rental Host Pack
+
+bigmi_install_quiet_night_pack:
+  alias: Bigmi Install Quiet Night Pack
+  sequence:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_pack_quiet_night_installed
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_marketplace_last_install
+      data:
+        value: Installed Quiet Night Pack from the Bigmi Marketplace shell
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Marketplace installed Quiet Night Pack
+
+bigmi_install_workday_pack:
+  alias: Bigmi Install Workday Pack
+  sequence:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_pack_workday_installed
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_marketplace_last_install
+      data:
+        value: Installed Workday Pack from the Bigmi Marketplace shell
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Marketplace installed Workday Pack
+
+bigmi_install_esports_pack:
+  alias: Bigmi Install Esports Pack
+  sequence:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_pack_esports_installed
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_marketplace_last_install
+      data:
+        value: Installed Esports Pack from the Bigmi Marketplace shell
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Marketplace installed Esports Pack
+
+bigmi_install_cinema_pack:
+  alias: Bigmi Install Cinema Pack
+  sequence:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_pack_cinema_installed
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_marketplace_last_install
+      data:
+        value: Installed Cinema Pack from the Bigmi Marketplace shell
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Marketplace installed Cinema Pack
+
+bigmi_arm_space_guard_home:
+  alias: Bigmi Arm Space Guard Home
+  sequence:
+    - action: alarm_control_panel.alarm_arm_home
+      target:
+        entity_id: alarm_control_panel.bigmi_space_guard
+
+bigmi_arm_space_guard_away:
+  alias: Bigmi Arm Space Guard Away
+  sequence:
+    - action: alarm_control_panel.alarm_arm_away
+      target:
+        entity_id: alarm_control_panel.bigmi_space_guard
+
+bigmi_disarm_space_guard:
+  alias: Bigmi Disarm Space Guard
+  sequence:
+    - action: alarm_control_panel.alarm_disarm
+      target:
+        entity_id: alarm_control_panel.bigmi_space_guard
+      data:
+        code: "2468"
+
+bigmi_trigger_space_guard_demo:
+  alias: Bigmi Trigger Space Guard Demo
+  sequence:
+    - action: alarm_control_panel.alarm_trigger
+      target:
+        entity_id: alarm_control_panel.bigmi_space_guard
+      data:
+        code: "2468"

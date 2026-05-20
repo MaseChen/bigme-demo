@@ -9,3 +9,7 @@ appdaemon/conf/apps/__pycache__/house_program_demo.cpython-312.pyc
 ha/.ha_run.lock
 ha/home-assistant_v2.db-shm
 ha/home-assistant_v2.db-wal
+nodered/data/.config.*
+nodered/data/flows_cred.json
+nodered/data/lib/
+nodered/data/node_modules/
