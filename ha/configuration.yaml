@@ -1,0 +1,33 @@
+default_config:
+
+homeassistant:
+  name: Bigmi PoC
+  time_zone: Asia/Hong_Kong
+  packages: !include_dir_named packages
+  allowlist_external_dirs:
+    - /config/www
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+rest_command:
+  bigmi_demo_scene_webhook:
+    url: http://127.0.0.1:8123/api/webhook/bigmi_demo_scene
+    method: POST
+    content_type: application/json
+    payload: >
+      {"mode":"cinema","source":"ha-rest-command","note":"Triggered from Bigmi Console local webhook demo"}
+
+lovelace:
+  dashboards:
+    bigmi-console:
+      mode: yaml
+      title: Bigmi Console
+      icon: mdi:home-automation
+      show_in_sidebar: true
+      require_admin: false
+      filename: dashboards/bigmi-console.yaml
+
+logger:
+  default: info

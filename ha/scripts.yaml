@@ -1,0 +1,160 @@
+bigmi_activate_esports_mode:
+  alias: Bigmi Activate Esports Mode
+  sequence:
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_rental_mode
+          - input_boolean.bigmi_cinema_mode
+    - action: input_boolean.turn_on
+      target:
+        entity_id:
+          - input_boolean.bigmi_pc_power
+          - input_boolean.bigmi_ambient_strip
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_projector_power
+          - input_boolean.bigmi_guest_welcome
+    - action: input_select.select_option
+      target:
+        entity_id: input_select.bigmi_primary_ecosystem
+      data:
+        option: Matter
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Esports mode activated from script
+
+bigmi_deactivate_esports_mode:
+  alias: Bigmi Deactivate Esports Mode
+  sequence:
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_pc_power
+          - input_boolean.bigmi_ambient_strip
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Esports mode deactivated
+
+bigmi_activate_rental_mode:
+  alias: Bigmi Activate Rental Mode
+  sequence:
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_esports_mode
+          - input_boolean.bigmi_cinema_mode
+    - action: input_boolean.turn_on
+      target:
+        entity_id:
+          - input_boolean.bigmi_guest_welcome
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_pc_power
+          - input_boolean.bigmi_projector_power
+    - action: input_select.select_option
+      target:
+        entity_id: input_select.bigmi_primary_ecosystem
+      data:
+        option: Xiaomi
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Rental mode activated from script
+
+bigmi_deactivate_rental_mode:
+  alias: Bigmi Deactivate Rental Mode
+  sequence:
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_guest_welcome
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Rental mode deactivated
+
+bigmi_activate_cinema_mode:
+  alias: Bigmi Activate Cinema Mode
+  sequence:
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_esports_mode
+          - input_boolean.bigmi_rental_mode
+    - action: input_boolean.turn_on
+      target:
+        entity_id:
+          - input_boolean.bigmi_projector_power
+          - input_boolean.bigmi_ambient_strip
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_pc_power
+    - action: input_select.select_option
+      target:
+        entity_id: input_select.bigmi_primary_ecosystem
+      data:
+        option: Tuya
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Cinema mode activated from script
+
+bigmi_deactivate_cinema_mode:
+  alias: Bigmi Deactivate Cinema Mode
+  sequence:
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_projector_power
+          - input_boolean.bigmi_ambient_strip
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Cinema mode deactivated
+
+bigmi_fire_runtime_demo_event:
+  alias: Bigmi Fire Runtime Demo Event
+  sequence:
+    - event: bigmi_activate_scene
+      event_data:
+        mode: esports
+        source: dashboard-event
+        note: Manual event fired from the Bigmi Studio Console
+        payload:
+          trigger: input_button.bigmi_fire_runtime_event
+          channel: custom-event
+
+bigmi_trigger_local_webhook_demo:
+  alias: Bigmi Trigger Local Webhook Demo
+  sequence:
+    - action: rest_command.bigmi_demo_scene_webhook
+
+bigmi_run_owner_arrives_home_program:
+  alias: Bigmi Run Owner Arrives Home Program
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: owner_arrives_home
+        source: apartment-dashboard
+        note: Owner tapped the arrive home button from the apartment demo
+
+bigmi_reset_apartment_demo:
+  alias: Bigmi Reset Apartment Demo
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: reset_apartment_demo
+        source: apartment-dashboard
+        note: Reset apartment state for the next programmable demo

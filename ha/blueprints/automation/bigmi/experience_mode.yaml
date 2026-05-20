@@ -1,0 +1,54 @@
+blueprint:
+  name: Bigmi Experience Mode
+  description: Reusable scenario template for esports, rental, or cinema experiences.
+  domain: automation
+  author: Codex
+  input:
+    mode_toggle:
+      name: Mode Toggle
+      description: The input_boolean that activates this experience.
+      selector:
+        entity:
+          domain: input_boolean
+    activation_script:
+      name: Activation Script
+      description: Script to run when the experience turns on.
+      selector:
+        entity:
+          domain: script
+    deactivation_script:
+      name: Deactivation Script
+      description: Script to run when the experience turns off.
+      selector:
+        entity:
+          domain: script
+    runtime_log_text:
+      name: Runtime Log Text
+      description: Text written to the Bigmi runtime audit field.
+      default: Blueprint experience executed
+      selector:
+        text:
+
+mode: restart
+trigger:
+  - platform: state
+    entity_id: !input mode_toggle
+
+action:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state == 'on' }}"
+        sequence:
+          - action: script.turn_on
+            target:
+              entity_id: !input activation_script
+          - action: input_text.set_value
+            target:
+              entity_id: input_text.bigmi_last_runtime_action
+            data:
+              value: !input runtime_log_text
+    default:
+      - action: script.turn_on
+        target:
+          entity_id: !input deactivation_script

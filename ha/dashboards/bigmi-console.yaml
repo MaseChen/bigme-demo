@@ -1,0 +1,594 @@
+title: Bigmi Console
+views:
+  - title: Command Deck
+    path: command-deck
+    icon: mdi:atom-variant
+    cards:
+      - type: picture
+        image: /local/bigmi-stage.svg
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+
+      - type: markdown
+        content: |
+          # Bigmi Command Deck
+          Bigmi is presented here as a programmable automation layer for smart homes and small smart spaces.
+
+          This dashboard is built for demos:
+          - Runtime and ecosystem fabric
+          - Experience orchestration for esports, rental, and cinema spaces
+          - Safety approvals and trace-first operations
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.bigmi_connected_ecosystems
+            name: Ecosystems
+            min: 0
+            max: 3
+            severity:
+              red: 0
+              yellow: 2
+              green: 3
+          - type: gauge
+            entity: sensor.bigmi_active_experience_count
+            name: Live Modes
+            min: 0
+            max: 3
+            severity:
+              green: 1
+              yellow: 2
+              red: 3
+          - type: gauge
+            entity: sensor.bigmi_local_roundtrip_latency
+            name: Local Latency
+            min: 0
+            max: 100
+            severity:
+              green: 20
+              yellow: 45
+              red: 75
+
+      - type: entities
+        title: Runtime Fabric
+        show_header_toggle: false
+        entities:
+          - entity: sensor.bigmi_runtime_status
+            name: Runtime Status
+          - entity: binary_sensor.bigmi_high_privilege_ready
+            name: High Privilege Ready
+          - entity: input_select.bigmi_primary_ecosystem
+            name: Primary Ecosystem
+          - entity: input_boolean.bigmi_xiaomi_bridge
+            name: Xiaomi Bridge
+          - entity: input_boolean.bigmi_tuya_bridge
+            name: Tuya Bridge
+          - entity: input_boolean.bigmi_matter_bridge
+            name: Matter Fabric
+          - entity: input_text.bigmi_last_runtime_action
+            name: Last Runtime Action
+
+      - type: history-graph
+        title: Runtime Pulse
+        hours_to_show: 2
+        refresh_interval: 15
+        entities:
+          - entity: input_boolean.bigmi_esports_mode
+          - entity: input_boolean.bigmi_rental_mode
+          - entity: input_boolean.bigmi_cinema_mode
+          - entity: input_boolean.bigmi_safety_guard
+
+  - title: Experiences
+    path: experiences
+    icon: mdi:view-grid-plus
+    cards:
+      - type: markdown
+        content: |
+          # Experience Studio
+          Use these tiles to trigger the three flagship Bigmi scenarios. The underlying mode changes are handled by the AppDaemon runtime and mirrored in the runtime audit field.
+
+      - type: grid
+        title: Flagship Modes
+        columns: 3
+        square: false
+        cards:
+          - type: tile
+            entity: input_boolean.bigmi_esports_mode
+            name: Esports Arena
+            icon: mdi:controller
+            color: cyan
+            vertical: true
+            hide_state: false
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+          - type: tile
+            entity: input_boolean.bigmi_rental_mode
+            name: Rental Host
+            icon: mdi:home-account
+            color: amber
+            vertical: true
+            hide_state: false
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+          - type: tile
+            entity: input_boolean.bigmi_cinema_mode
+            name: Cinema Room
+            icon: mdi:projector-screen
+            color: deep-orange
+            vertical: true
+            hide_state: false
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+
+      - type: grid
+        title: Downstream Devices
+        columns: 2
+        square: false
+        cards:
+          - type: tile
+            entity: input_boolean.bigmi_pc_power
+            name: Gaming PC
+            icon: mdi:desktop-classic
+            color: blue
+            tap_action:
+              action: toggle
+          - type: tile
+            entity: input_boolean.bigmi_ambient_strip
+            name: Ambient Strip
+            icon: mdi:led-strip-variant
+            color: teal
+            tap_action:
+              action: toggle
+          - type: tile
+            entity: input_boolean.bigmi_projector_power
+            name: Projector
+            icon: mdi:projector
+            color: orange
+            tap_action:
+              action: toggle
+          - type: tile
+            entity: input_boolean.bigmi_guest_welcome
+            name: Guest Welcome
+            icon: mdi:account-check
+            color: green
+            tap_action:
+              action: toggle
+
+      - type: entities
+        title: Scenario Telemetry
+        show_header_toggle: false
+        entities:
+          - entity: sensor.bigmi_active_experience_count
+            name: Active Experience Count
+          - entity: sensor.bigmi_local_roundtrip_latency
+            name: Local Roundtrip Latency
+          - entity: sensor.bigmi_template_catalog_size
+            name: Template Packs
+          - entity: input_text.bigmi_last_runtime_action
+            name: Runtime Audit
+
+      - type: horizontal-stack
+        cards:
+          - type: button
+            name: Guest Arrival Demo
+            icon: mdi:account-arrow-right
+            tap_action:
+              action: perform-action
+              perform_action: input_button.press
+              target:
+                entity_id: input_button.bigmi_simulate_guest_arrival
+            hold_action:
+              action: more-info
+              entity: input_button.bigmi_simulate_guest_arrival
+          - type: button
+            name: Open Safety Lab
+            icon: mdi:shield-lock
+            tap_action:
+              action: navigate
+              navigation_path: /bigmi-console/safety-lab
+            hold_action:
+              action: none
+
+  - title: Safety Lab
+    path: safety-lab
+    icon: mdi:shield-lock
+    cards:
+      - type: markdown
+        content: |
+          # Safety and Permission Lab
+          This view is designed for trace screenshots.
+
+          Demo sequence:
+          1. Press **Request Sensitive Unlock**
+          2. Watch the approval queue flip to pending
+          3. Toggle **Admin Approval Granted**
+          4. Open the automation trace for the colored execution graph
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.bigmi_approval_queue
+            name: Approval Queue
+            min: 0
+            max: 1
+            severity:
+              green: 0
+              red: 1
+          - type: gauge
+            entity: sensor.bigmi_connected_ecosystems
+            name: Fabric Links
+            min: 0
+            max: 3
+            severity:
+              red: 0
+              yellow: 2
+              green: 3
+
+      - type: entities
+        title: Safety Controls
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.bigmi_safety_guard
+            name: Safety Guard
+          - entity: input_boolean.bigmi_sensitive_unlock_pending
+            name: Unlock Pending
+          - entity: input_boolean.bigmi_admin_approval
+            name: Admin Approval Granted
+          - entity: input_boolean.bigmi_smart_lock
+            name: Smart Lock Override
+          - entity: input_text.bigmi_last_runtime_action
+            name: Last Runtime Action
+
+      - type: horizontal-stack
+        cards:
+          - type: button
+            name: Request Sensitive Unlock
+            icon: mdi:lock-question
+            tap_action:
+              action: perform-action
+              perform_action: input_button.press
+              target:
+                entity_id: input_button.bigmi_request_sensitive_unlock
+              confirmation:
+                text: Queue a sensitive unlock request for the trace demo?
+            hold_action:
+              action: more-info
+              entity: input_button.bigmi_request_sensitive_unlock
+          - type: button
+            name: Approve Unlock
+            icon: mdi:shield-check
+            entity: input_boolean.bigmi_admin_approval
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+
+      - type: history-graph
+        title: Safety Timeline
+        hours_to_show: 2
+        refresh_interval: 15
+        entities:
+          - entity: input_boolean.bigmi_sensitive_unlock_pending
+          - entity: input_boolean.bigmi_admin_approval
+          - entity: input_boolean.bigmi_smart_lock
+          - entity: input_boolean.bigmi_safety_guard
+
+      - type: markdown
+        content: |
+          **Trace targets for screenshots**
+
+          - `Bigmi Sensitive Unlock Request`
+          - `Bigmi Approve Sensitive Unlock`
+          - `Bigmi Guest Arrival Trace`
+
+          Open them from **Settings -> Automations & scenes**, then select **Trace**.
+
+  - title: Studio
+    path: studio
+    icon: mdi:console-network
+    cards:
+      - type: markdown
+        content: |
+          # Bigmi Studio
+          This is the short-path demo view for Bigmi's programmable potential.
+
+          Three fast demos:
+          - **Runtime Event Demo**: dashboard button fires a custom event into the Python runtime
+          - **Blueprint Demo**: reusable template emits the same runtime event from the marketplace layer
+          - **Webhook Demo**: an HTTP call enters Home Assistant and is forwarded into the runtime
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.bigmi_programmable_entry_points
+            name: Entry Points
+            min: 0
+            max: 6
+            severity:
+              red: 1
+              yellow: 3
+              green: 4
+          - type: gauge
+            entity: sensor.bigmi_template_catalog_size
+            name: Template Packs
+            min: 0
+            max: 20
+            severity:
+              red: 2
+              yellow: 6
+              green: 10
+          - type: gauge
+            entity: sensor.bigmi_active_experience_count
+            name: Active Modes
+            min: 0
+            max: 3
+            severity:
+              green: 1
+              yellow: 2
+              red: 3
+
+      - type: entities
+        title: Runtime Audit Feed
+        show_header_toggle: false
+        entities:
+          - entity: input_text.bigmi_last_runtime_action
+            name: Last Runtime Action
+          - entity: input_text.bigmi_last_runtime_channel
+            name: Last Runtime Channel
+          - entity: input_text.bigmi_last_program_payload
+            name: Last Program Payload
+          - entity: sensor.bigmi_runtime_status
+            name: Runtime Status
+
+      - type: grid
+        title: Demo Triggers
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            name: Fire Runtime Event
+            icon: mdi:code-json
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_fire_runtime_demo_event
+            hold_action:
+              action: more-info
+              entity: script.bigmi_fire_runtime_demo_event
+          - type: button
+            name: Run Blueprint Demo
+            icon: mdi:store-cog
+            tap_action:
+              action: perform-action
+              perform_action: input_button.press
+              target:
+                entity_id: input_button.bigmi_blueprint_launch_rental
+            hold_action:
+              action: more-info
+              entity: input_button.bigmi_blueprint_launch_rental
+          - type: button
+            name: Run Webhook Demo
+            icon: mdi:api
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_trigger_local_webhook_demo
+            hold_action:
+              action: more-info
+              entity: script.bigmi_trigger_local_webhook_demo
+
+      - type: markdown
+        content: |
+          ## External API demo command
+
+          ```bash
+          curl -X POST http://localhost:8123/api/webhook/bigmi_demo_scene \
+            -H "Content-Type: application/json" \
+            -d '{"mode":"rental","source":"curl","note":"External API demo"}'
+          ```
+
+          After running it, open the trace for **Bigmi Webhook Programming Surface** and watch the runtime audit fields update.
+
+      - type: history-graph
+        title: Programmability Timeline
+        hours_to_show: 2
+        refresh_interval: 15
+        entities:
+          - entity: input_boolean.bigmi_esports_mode
+          - entity: input_boolean.bigmi_rental_mode
+          - entity: input_boolean.bigmi_cinema_mode
+
+  - title: Apartment
+    path: apartment
+    icon: mdi:floor-plan
+    cards:
+      - type: markdown
+        content: |
+          # Bigmi Smart Apartment
+          This demo apartment contains six spaces:
+          - Entryway
+          - Living Room
+          - Kitchen
+          - Bedroom
+          - Bathroom
+          - Study
+
+          The main programmable scenario is **Owner Arrives Home**.
+          It stops the vacuum, lights the path, opens the main curtain, starts climate control, and preheats hot water in a staged sequence.
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.bigmi_active_apartment_devices
+            name: Active Devices
+            min: 0
+            max: 12
+            severity:
+              green: 4
+              yellow: 8
+              red: 11
+          - type: gauge
+            entity: sensor.bigmi_local_roundtrip_latency
+            name: Local Latency
+            min: 0
+            max: 100
+            severity:
+              green: 20
+              yellow: 45
+              red: 75
+          - type: gauge
+            entity: sensor.bigmi_programmable_entry_points
+            name: Entry Points
+            min: 0
+            max: 6
+            severity:
+              red: 1
+              yellow: 3
+              green: 4
+
+      - type: horizontal-stack
+        cards:
+          - type: button
+            name: Owner Arrives Home
+            icon: mdi:home-import-outline
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_owner_arrives_home_program
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_owner_arrives_home_program
+          - type: button
+            name: Reset Apartment
+            icon: mdi:restore
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_reset_apartment_demo
+            hold_action:
+              action: more-info
+              entity: script.bigmi_reset_apartment_demo
+
+      - type: entities
+        title: Program Telemetry
+        show_header_toggle: false
+        entities:
+          - entity: input_text.bigmi_house_program_status
+            name: Program Status
+          - entity: input_text.bigmi_last_room_touched
+            name: Last Room Touched
+          - entity: input_text.bigmi_last_runtime_action
+            name: Last Runtime Action
+          - entity: input_text.bigmi_last_runtime_channel
+            name: Last Runtime Channel
+          - entity: input_text.bigmi_last_program_payload
+            name: Last Program Payload
+
+      - type: grid
+        title: Entryway
+        columns: 2
+        square: false
+        cards:
+          - type: tile
+            entity: input_boolean.bigmi_owner_home
+            name: Owner Home
+            icon: mdi:account-arrow-right
+            color: green
+          - type: tile
+            entity: input_boolean.bigmi_entryway_light
+            name: Entryway Light
+            icon: mdi:lightbulb
+            color: amber
+
+      - type: grid
+        title: Living Room
+        columns: 3
+        square: false
+        cards:
+          - type: tile
+            entity: input_boolean.bigmi_living_room_curtain
+            name: Curtain
+            icon: mdi:curtains
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_living_room_ceiling_light
+            name: Ceiling Light
+            icon: mdi:ceiling-light
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_living_room_floor_lamp
+            name: Floor Lamp
+            icon: mdi:floor-lamp
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_living_room_ac
+            name: Air Conditioner
+            icon: mdi:air-conditioner
+            color: cyan
+          - type: tile
+            entity: input_boolean.bigmi_robot_vacuum_cleaning
+            name: Robot Vacuum
+            icon: mdi:robot-vacuum
+            color: purple
+
+      - type: grid
+        title: Kitchen, Bedroom, Bathroom, Study
+        columns: 2
+        square: false
+        cards:
+          - type: tile
+            entity: input_boolean.bigmi_kitchen_pendant_light
+            name: Kitchen Pendant
+            icon: mdi:lightbulb-group
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_bedroom_curtain
+            name: Bedroom Curtain
+            icon: mdi:curtains-closed
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_bedroom_air_purifier
+            name: Air Purifier
+            icon: mdi:air-purifier
+            color: teal
+          - type: tile
+            entity: input_boolean.bigmi_bedroom_bedside_lamp
+            name: Bedside Lamp
+            icon: mdi:lamp
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_bathroom_water_heater
+            name: Water Heater
+            icon: mdi:water-boiler
+            color: red
+          - type: tile
+            entity: input_boolean.bigmi_study_desk_lamp
+            name: Study Desk Lamp
+            icon: mdi:desk-lamp
+            color: green
+
+      - type: markdown
+        content: |
+          ## Modify the program
+
+          Advanced users can edit the program in:
+
+          - `/Users/jarason/Documents/code/bigme-demo/appdaemon/conf/apps/house_program_demo.py`
+
+          The easiest extension points are:
+          - `ROOMS`: define room structure
+          - `PROGRAMS["owner_arrives_home"]["steps"]`: add, remove, or reorder device actions
+
+      - type: history-graph
+        title: Apartment Device Timeline
+        hours_to_show: 2
+        refresh_interval: 15
+        entities:
+          - entity: input_boolean.bigmi_entryway_light
+          - entity: input_boolean.bigmi_living_room_ac
+          - entity: input_boolean.bigmi_robot_vacuum_cleaning
+          - entity: input_boolean.bigmi_bathroom_water_heater

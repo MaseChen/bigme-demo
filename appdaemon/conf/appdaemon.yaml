@@ -1,0 +1,19 @@
+appdaemon:
+  latitude: 22.3193
+  longitude: 114.1694
+  elevation: 15
+  time_zone: Asia/Hong_Kong
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://homeassistant:8123
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZWI4Mjk3YjkwNzk0MjE5OGUzNmFhYWE2MjlhNjU2OCIsImlhdCI6MTc3OTI3NDA2MywiZXhwIjoyMDk0NjM0MDYzfQ.ktYe2IfRvlaI1PjAggW-K_6tKC34iQyMya1cCsccAyQ
+
+http:
+  url: http://0.0.0.0:5050
+
+admin:
+
+api:
+
+hadashboard:

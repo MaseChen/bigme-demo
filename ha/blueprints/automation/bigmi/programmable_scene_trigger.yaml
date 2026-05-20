@@ -1,0 +1,45 @@
+blueprint:
+  name: Bigmi Programmable Scene Trigger
+  description: Emits a Bigmi runtime event so reusable templates can target the Python orchestration layer.
+  domain: automation
+  author: Codex
+  input:
+    trigger_button:
+      name: Trigger Button
+      description: Pressing this input button launches the programmed scene.
+      selector:
+        entity:
+          domain: input_button
+    mode_name:
+      name: Scene Mode
+      description: One of esports, rental, or cinema.
+      default: rental
+      selector:
+        text:
+    event_source:
+      name: Event Source Label
+      description: Source name recorded by the runtime for audit and demos.
+      default: blueprint-marketplace
+      selector:
+        text:
+    note:
+      name: Audit Note
+      description: Human-readable note recorded with the emitted event.
+      default: Blueprint scene launched
+      selector:
+        text:
+
+mode: single
+trigger:
+  - platform: state
+    entity_id: !input trigger_button
+
+action:
+  - event: bigmi_activate_scene
+    event_data:
+      mode: !input mode_name
+      source: !input event_source
+      note: !input note
+      payload:
+        via: blueprint
+        trigger_button: !input trigger_button

@@ -1,0 +1,10 @@
+bigmi_runtime:
+  module: bigmi_runtime
+  class: BigmiRuntime
+  esports_toggle: input_boolean.bigmi_esports_mode
+  rental_toggle: input_boolean.bigmi_rental_mode
+  cinema_toggle: input_boolean.bigmi_cinema_mode
+
+bigmi_house_program_demo:
+  module: house_program_demo
+  class: BigmiHouseProgramDemo

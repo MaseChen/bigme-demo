@@ -1,0 +1,340 @@
+input_boolean:
+  bigmi_xiaomi_bridge:
+    name: Xiaomi Bridge Online
+    icon: mdi:home-assistant
+    initial: true
+  bigmi_tuya_bridge:
+    name: Tuya Bridge Online
+    icon: mdi:cloud-sync
+    initial: true
+  bigmi_matter_bridge:
+    name: Matter Fabric Online
+    icon: mdi:connection
+    initial: true
+
+  bigmi_esports_mode:
+    name: Esports Room Mode
+    icon: mdi:controller
+  bigmi_rental_mode:
+    name: Rental Host Mode
+    icon: mdi:home-account
+  bigmi_cinema_mode:
+    name: Cinema Room Mode
+    icon: mdi:projector
+
+  bigmi_pc_power:
+    name: Gaming PC Power
+    icon: mdi:desktop-classic
+  bigmi_ambient_strip:
+    name: Ambient Light Strip
+    icon: mdi:led-strip-variant
+  bigmi_projector_power:
+    name: Projector Power
+    icon: mdi:projector
+  bigmi_guest_welcome:
+    name: Guest Welcome Automation
+    icon: mdi:account-check
+  bigmi_smart_lock:
+    name: Smart Lock Override
+    icon: mdi:lock-open-variant
+  bigmi_sensitive_unlock_pending:
+    name: Sensitive Unlock Pending
+    icon: mdi:shield-alert
+  bigmi_admin_approval:
+    name: Admin Approval Granted
+    icon: mdi:shield-check
+  bigmi_safety_guard:
+    name: Safety Guard Enabled
+    icon: mdi:shield-lock
+    initial: true
+  bigmi_owner_home:
+    name: Owner Home
+    icon: mdi:home-import-outline
+
+  bigmi_entryway_light:
+    name: Entryway Light
+    icon: mdi:lightbulb
+  bigmi_living_room_curtain:
+    name: Living Room Curtain
+    icon: mdi:curtains
+  bigmi_living_room_ceiling_light:
+    name: Living Room Ceiling Light
+    icon: mdi:ceiling-light
+  bigmi_living_room_floor_lamp:
+    name: Living Room Floor Lamp
+    icon: mdi:floor-lamp
+  bigmi_living_room_ac:
+    name: Living Room Air Conditioner
+    icon: mdi:air-conditioner
+  bigmi_robot_vacuum_cleaning:
+    name: Robot Vacuum Cleaning
+    icon: mdi:robot-vacuum
+    initial: true
+  bigmi_kitchen_pendant_light:
+    name: Kitchen Pendant Light
+    icon: mdi:lightbulb-group
+  bigmi_bedroom_curtain:
+    name: Bedroom Curtain
+    icon: mdi:curtains-closed
+  bigmi_bedroom_air_purifier:
+    name: Bedroom Air Purifier
+    icon: mdi:air-purifier
+  bigmi_bedroom_bedside_lamp:
+    name: Bedroom Bedside Lamp
+    icon: mdi:lamp
+  bigmi_bathroom_water_heater:
+    name: Bathroom Water Heater
+    icon: mdi:water-boiler
+  bigmi_study_desk_lamp:
+    name: Study Desk Lamp
+    icon: mdi:desk-lamp
+
+input_button:
+  bigmi_simulate_guest_arrival:
+    name: Simulate Guest Arrival
+    icon: mdi:account-arrow-right
+  bigmi_request_sensitive_unlock:
+    name: Request Sensitive Unlock
+    icon: mdi:lock-question
+  bigmi_blueprint_launch_rental:
+    name: Blueprint Launch Rental Demo
+    icon: mdi:store-cog
+  bigmi_fire_runtime_event:
+    name: Fire Runtime Event Demo
+    icon: mdi:code-json
+  bigmi_run_owner_arrives_home_program:
+    name: Run Owner Arrives Home
+    icon: mdi:home-import-outline
+  bigmi_reset_apartment_demo:
+    name: Reset Apartment Demo
+    icon: mdi:restore
+
+input_select:
+  bigmi_primary_ecosystem:
+    name: Primary Ecosystem
+    options:
+      - Xiaomi
+      - Tuya
+      - Matter
+      - Hybrid
+    initial: Hybrid
+    icon: mdi:vector-link
+
+input_text:
+  bigmi_last_runtime_action:
+    name: Last Runtime Action
+    initial: Runtime ready
+    max: 255
+  bigmi_last_runtime_channel:
+    name: Last Runtime Channel
+    initial: bootstrap
+    max: 255
+  bigmi_last_program_payload:
+    name: Last Program Payload
+    initial: none
+    max: 255
+  bigmi_house_program_status:
+    name: House Program Status
+    initial: Apartment staged and waiting
+    max: 255
+  bigmi_last_room_touched:
+    name: Last Room Touched
+    initial: none
+    max: 255
+
+template:
+  - sensor:
+      - name: Bigmi Runtime Status
+        unique_id: bigmi_runtime_status
+        icon: mdi:robot-industrial
+        state: >
+          {% if is_state('input_boolean.bigmi_esports_mode', 'on') %}
+            Esports room orchestration active
+          {% elif is_state('input_boolean.bigmi_rental_mode', 'on') %}
+            Rental hosting orchestration active
+          {% elif is_state('input_boolean.bigmi_cinema_mode', 'on') %}
+            Cinema room orchestration active
+          {% else %}
+            Idle, waiting for a scenario
+          {% endif %}
+
+      - name: Bigmi Connected Ecosystems
+        unique_id: bigmi_connected_ecosystems
+        icon: mdi:lan-connect
+        state: >
+          {% set links = [
+            is_state('input_boolean.bigmi_xiaomi_bridge', 'on'),
+            is_state('input_boolean.bigmi_tuya_bridge', 'on'),
+            is_state('input_boolean.bigmi_matter_bridge', 'on')
+          ] %}
+          {{ links | select('eq', true) | list | count }}
+
+      - name: Bigmi Template Catalog Size
+        unique_id: bigmi_template_catalog_size
+        icon: mdi:storefront-outline
+        unit_of_measurement: packs
+        state: 12
+
+      - name: Bigmi Local Roundtrip Latency
+        unique_id: bigmi_local_roundtrip_latency
+        icon: mdi:speedometer
+        unit_of_measurement: ms
+        state: >
+          {% if is_state('input_boolean.bigmi_esports_mode', 'on') %}
+            18
+          {% elif is_state('input_boolean.bigmi_cinema_mode', 'on') %}
+            24
+          {% elif is_state('input_boolean.bigmi_rental_mode', 'on') %}
+            31
+          {% else %}
+            9
+          {% endif %}
+
+      - name: Bigmi Active Experience Count
+        unique_id: bigmi_active_experience_count
+        icon: mdi:play-box-multiple-outline
+        state: >
+          {{
+            [
+              is_state('input_boolean.bigmi_esports_mode', 'on'),
+              is_state('input_boolean.bigmi_rental_mode', 'on'),
+              is_state('input_boolean.bigmi_cinema_mode', 'on')
+            ] | select('eq', true) | list | count
+          }}
+
+      - name: Bigmi Approval Queue
+        unique_id: bigmi_approval_queue
+        icon: mdi:shield-sync
+        state: >
+          {{ 1 if is_state('input_boolean.bigmi_sensitive_unlock_pending', 'on') else 0 }}
+
+      - name: Bigmi Programmable Entry Points
+        unique_id: bigmi_programmable_entry_points
+        icon: mdi:vector-polyline
+        state: 4
+
+      - name: Bigmi Active Apartment Devices
+        unique_id: bigmi_active_apartment_devices
+        icon: mdi:floor-plan
+        state: >
+          {{
+            [
+              is_state('input_boolean.bigmi_entryway_light', 'on'),
+              is_state('input_boolean.bigmi_living_room_curtain', 'on'),
+              is_state('input_boolean.bigmi_living_room_ceiling_light', 'on'),
+              is_state('input_boolean.bigmi_living_room_floor_lamp', 'on'),
+              is_state('input_boolean.bigmi_living_room_ac', 'on'),
+              is_state('input_boolean.bigmi_robot_vacuum_cleaning', 'on'),
+              is_state('input_boolean.bigmi_kitchen_pendant_light', 'on'),
+              is_state('input_boolean.bigmi_bedroom_curtain', 'on'),
+              is_state('input_boolean.bigmi_bedroom_air_purifier', 'on'),
+              is_state('input_boolean.bigmi_bedroom_bedside_lamp', 'on'),
+              is_state('input_boolean.bigmi_bathroom_water_heater', 'on'),
+              is_state('input_boolean.bigmi_study_desk_lamp', 'on')
+            ] | select('eq', true) | list | count
+          }}
+
+  - binary_sensor:
+      - name: Bigmi High Privilege Ready
+        unique_id: bigmi_high_privilege_ready
+        icon: mdi:shield-key
+        state: >
+          {{
+            is_state('input_boolean.bigmi_xiaomi_bridge', 'on')
+            and is_state('input_boolean.bigmi_tuya_bridge', 'on')
+            and is_state('input_boolean.bigmi_matter_bridge', 'on')
+            and is_state('input_boolean.bigmi_safety_guard', 'on')
+          }}
+
+group:
+  bigmi_runtime_hub:
+    name: Bigmi Runtime Hub
+    entities:
+      - input_boolean.bigmi_xiaomi_bridge
+      - input_boolean.bigmi_tuya_bridge
+      - input_boolean.bigmi_matter_bridge
+      - input_select.bigmi_primary_ecosystem
+      - sensor.bigmi_connected_ecosystems
+      - sensor.bigmi_runtime_status
+      - sensor.bigmi_local_roundtrip_latency
+      - binary_sensor.bigmi_high_privilege_ready
+
+  bigmi_mode_controls:
+    name: Bigmi Mode Controls
+    entities:
+      - input_boolean.bigmi_esports_mode
+      - input_boolean.bigmi_rental_mode
+      - input_boolean.bigmi_cinema_mode
+      - input_text.bigmi_last_runtime_action
+
+  bigmi_safety_lab:
+    name: Bigmi Safety Lab
+    entities:
+      - input_button.bigmi_request_sensitive_unlock
+      - input_button.bigmi_simulate_guest_arrival
+      - input_boolean.bigmi_sensitive_unlock_pending
+      - input_boolean.bigmi_admin_approval
+      - input_boolean.bigmi_smart_lock
+      - input_boolean.bigmi_safety_guard
+
+  bigmi_marketplace_lab:
+    name: Bigmi Marketplace Lab
+    entities:
+      - sensor.bigmi_template_catalog_size
+      - sensor.bigmi_active_experience_count
+      - sensor.bigmi_approval_queue
+
+  bigmi_studio_lab:
+    name: Bigmi Studio Lab
+    entities:
+      - input_button.bigmi_fire_runtime_event
+      - input_button.bigmi_blueprint_launch_rental
+      - input_text.bigmi_last_runtime_channel
+      - input_text.bigmi_last_program_payload
+      - sensor.bigmi_programmable_entry_points
+
+  bigmi_apartment_controls:
+    name: Apartment Controls
+    entities:
+      - input_button.bigmi_run_owner_arrives_home_program
+      - input_button.bigmi_reset_apartment_demo
+      - input_text.bigmi_house_program_status
+      - input_text.bigmi_last_room_touched
+      - sensor.bigmi_active_apartment_devices
+
+  bigmi_room_entryway:
+    name: Entryway
+    entities:
+      - input_boolean.bigmi_owner_home
+      - input_boolean.bigmi_entryway_light
+
+  bigmi_room_living_room:
+    name: Living Room
+    entities:
+      - input_boolean.bigmi_living_room_curtain
+      - input_boolean.bigmi_living_room_ceiling_light
+      - input_boolean.bigmi_living_room_floor_lamp
+      - input_boolean.bigmi_living_room_ac
+      - input_boolean.bigmi_robot_vacuum_cleaning
+
+  bigmi_room_kitchen:
+    name: Kitchen
+    entities:
+      - input_boolean.bigmi_kitchen_pendant_light
+
+  bigmi_room_bedroom:
+    name: Bedroom
+    entities:
+      - input_boolean.bigmi_bedroom_curtain
+      - input_boolean.bigmi_bedroom_air_purifier
+      - input_boolean.bigmi_bedroom_bedside_lamp
+
+  bigmi_room_bathroom:
+    name: Bathroom
+    entities:
+      - input_boolean.bigmi_bathroom_water_heater
+
+  bigmi_room_study:
+    name: Study
+    entities:
+      - input_boolean.bigmi_study_desk_lamp

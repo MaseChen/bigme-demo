@@ -1,0 +1,6 @@
+.DS_Store
+.env
+ha/.storage/
+ha/home-assistant_v2.db
+ha/home-assistant.log*
+appdaemon/conf/logs/

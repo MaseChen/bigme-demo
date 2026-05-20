@@ -1,0 +1,248 @@
+Bigmi 商业计划书写作说明
+
+项目定位：
+
+Bigmi 不要写成“另一个米家 App”。我们的核心方向是做一个面向程序员、高阶智能家居用户和小型空间运营者的可编程智能家居平台。
+
+一句话定位：
+
+Bigmi is a high-privilege programmable smart home customization platform that allows developers and advanced users to create, deploy, and share complex smart home automations across different devices and ecosystems.
+
+中文理解：
+
+Bigmi 是一个高权限、可编程、跨品牌的智能家居定制平台。它让用户不只是控制设备，而是可以像写程序一样设计自己的智能家居逻辑。
+
+报告主线：
+
+智能家居设备越来越多，但现有平台大多生态封闭、自动化能力弱、开发者权限低。Bigmi 的机会是做一个更开放、更可编程、更适合高阶用户和开发者的智能家居自动化平台。
+
+一、现有平台的问题
+
+现在的智能家居平台主要有三个痛点。
+
+第一，生态割裂。
+
+很多家庭里同时有米家、涂鸦、华为、Apple Home、Google Home、Matter、Zigbee 等设备，但不同生态之间联动有限。用户想做跨品牌自动化时，往往需要多个 App 或复杂配置。
+
+第二，自动化能力弱。
+
+大部分平台只能做简单规则，比如“到时间开灯”“检测到人开空调”。但真实场景经常需要更复杂的逻辑，比如结合时间、温度、人体传感器、用户习惯、设备状态、日历、天气等多个条件。
+
+第三，开发者体验差。
+
+Home Assistant 很强，但配置和维护门槛高。米家、Apple Home、Google Home 体验更简单，但开放程度有限。市场缺少一个既强大、又相对易用、又对程序员友好的平台。
+
+二、Bigmi 的产品思路
+
+Bigmi 可以拆成四个核心模块。
+	1.	Bigmi Runtime / Hub
+
+负责连接设备、读取状态、执行自动化逻辑。早期可以先做软件平台，运行在电脑、NAS、树莓派、家庭服务器等设备上。后期可以考虑推出 Bigmi Hub 作为可选硬件。
+	2.	Bigmi Studio
+
+面向开发者和高阶用户的编程环境。支持 Java、JavaScript/TypeScript、Python，也可以提供可视化规则编辑器。
+
+Java 可以作为亮点，因为它适合写稳定、长期运行、强类型的自动化服务，适合专业开发者。
+	3.	Bigmi Marketplace
+
+开发者可以上传自动化模板、插件和场景包，普通用户可以一键安装。
+
+例如：
+
+老人照护模式
+节能模式
+宠物模式
+民宿入住模式
+电竞房模式
+影音房模式
+夜间安静模式
+居家办公模式
+
+这个模块是 Bigmi 后期形成平台生态的关键。
+	4.	Safety & Permission Layer
+
+因为 Bigmi 是 high-privilege platform，所以安全必须重点写。
+
+需要强调：
+
+权限分级
+沙箱运行
+插件审核
+运行日志
+敏感设备二次确认
+自动化冲突检测
+一键停用和回滚
+本地优先运行
+隐私保护
+
+比如控制灯光是低风险权限，控制门锁、摄像头、插座等是高风险权限，需要更严格的授权和记录。
+
+三、Bigmi 的价值主张
+
+对开发者：
+
+Bigmi 提供 SDK、API、调试工具和模板市场，让开发者可以开发、发布甚至出售智能家居自动化方案。
+
+对高阶用户：
+
+Bigmi 可以实现普通 App 做不到的复杂自动化，比如跨品牌联动、多条件判断、个性化场景和长期运行逻辑。
+
+对普通用户：
+
+普通用户不用写代码，可以从 marketplace 一键安装别人写好的自动化模板。
+
+对小型空间运营者：
+
+民宿、公寓、合租房、小办公室、工作室、电竞房等可以用 Bigmi 做远程管理、节能、安全和体验升级。
+
+核心价值不要写成“方便控制智能家居”，而应该写成：
+
+Bigmi lowers the barrier for creating, deploying, and using advanced smart home automation.
+
+四、竞品分析思路
+
+不要只比较小米。应该比较：
+
+米家
+华为智慧生活
+涂鸦智能
+Apple Home
+Google Home / Alexa
+Home Assistant
+IFTTT
+Samsung SmartThings
+
+Bigmi 的差异化可以概括成：
+
+比 Home Assistant 更易用。
+比米家、华为、Apple、Google 更开放。
+比 IFTTT 更强大。
+比涂鸦更面向开发者和终端用户。
+
+核心竞争点：
+
+可编程能力
+跨生态连接
+开发者体验
+安全权限控制
+模板市场
+本地执行能力
+
+Bigmi 不要和大厂正面拼设备数量，而是强调自己是跨生态、开发者友好、高权限可编程的中间层平台。
+
+五、商业模式思路
+
+Bigmi 可以采用混合商业模式。
+	1.	个人订阅
+
+高级自动化、远程访问、云备份、多空间管理、AI 自动化建议等功能收费。
+	2.	开发者订阅
+
+高级 SDK、API、测试环境、发布工具、数据分析等功能收费。
+	3.	Marketplace 抽成
+
+对自动化模板、插件、设备适配器、场景包交易抽成。
+	4.	B2B 定制
+
+为民宿、公寓、小办公室、工作室、智能家居安装商提供定制方案。
+	5.	硬件 Hub
+
+后期可以推出 Bigmi Hub，但第一阶段不要把硬件写得太重，避免报告里要解释供应链、库存、售后等问题。
+
+建议表达：
+
+Bigmi starts as a software-first platform and later introduces an optional hub for better local execution and device compatibility.
+
+六、Go-to-Market 思路
+
+第一阶段：程序员和智能家居发烧友
+
+通过 GitHub、知乎、B 站、少数派、酷安、智能家居论坛、NAS/软路由社区、开发者社区获取早期用户。
+
+第二阶段：小型空间运营者和安装商
+
+切入民宿、公寓、小办公室、工作室、影音房、电竞房等场景，做示范案例。
+
+第三阶段：普通家庭用户
+
+当 marketplace 里有足够多模板后，让普通用户通过一键安装使用高级自动化。
+
+七、风险与应对
+
+安全风险：
+
+高权限控制设备可能带来隐私和安全问题。
+
+应对：
+
+权限分级、沙箱运行、日志记录、插件审核、二次确认、回滚机制。
+
+兼容性风险：
+
+设备品牌和协议太多。
+
+应对：
+
+早期只支持 Matter、Home Assistant bridge、米家/涂鸦等常见设备，不承诺一开始全覆盖。
+
+用户门槛风险：
+
+普通用户不会编程。
+
+应对：
+
+开发者写模板，普通用户一键安装。
+
+竞争风险：
+
+大厂可能增强自动化能力。
+
+应对：
+
+Bigmi 强调跨生态中立、开发者社区、模板市场和高权限专业定位。
+
+八、退出策略思路
+
+不要只写 IPO。更现实的是战略收购。
+
+潜在收购方：
+
+小米
+华为
+涂鸦智能
+美的
+海尔
+格力
+Google
+Amazon
+Samsung SmartThings
+IoT 平台公司
+智能家居安装平台
+物业科技公司
+
+退出逻辑：
+
+如果 Bigmi 建立了开发者生态、自动化模板市场和跨设备控制能力，它对大型智能家居公司来说就是有价值的生态资产。
+
+IPO 可以作为远期可能，但不应作为主要退出路径。
+
+九、最终写作主线
+
+整篇报告围绕一句话：
+
+Bigmi is not another smart home control app. Bigmi is the programmable automation layer for smart homes and small smart spaces.
+
+中文：
+
+Bigmi 不是另一个智能家居控制 App，而是智能家居和小型智能空间的可编程自动化中间层。
+
+写作时反复强调六个关键词：
+
+高权限
+可编程
+跨生态
+开发者友好
+安全可控
+模板市场
+
+只要围绕这条主线写，Bigmi 就不会变成普通的“仿米家”项目，而会更像一个有平台潜力的创业方案。

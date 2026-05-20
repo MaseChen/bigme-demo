@@ -1,0 +1,177 @@
+- id: bigmi_experience_mode_blueprint
+  alias: Bigmi Experience Mode via Blueprint
+  description: Blueprint-backed demo automation for Marketplace screenshots.
+  trace:
+    stored_traces: 20
+  use_blueprint:
+    path: bigmi/experience_mode.yaml
+    input:
+      mode_toggle: input_boolean.bigmi_esports_mode
+      activation_script: script.bigmi_activate_esports_mode
+      deactivation_script: script.bigmi_deactivate_esports_mode
+      runtime_log_text: Blueprint launched esports mode
+
+- id: bigmi_blueprint_programmable_rental
+  alias: Bigmi Blueprint Programmable Rental Demo
+  description: Marketplace-style template that emits a runtime event into the Bigmi Python engine.
+  trace:
+    stored_traces: 20
+  use_blueprint:
+    path: bigmi/programmable_scene_trigger.yaml
+    input:
+      trigger_button: input_button.bigmi_blueprint_launch_rental
+      mode_name: rental
+      event_source: blueprint-marketplace
+      note: Blueprint installed rental demo launched from the marketplace layer
+
+- id: bigmi_guest_arrival_trace
+  alias: Bigmi Guest Arrival Trace
+  description: Demo flow for rental mode trace screenshots.
+  trace:
+    stored_traces: 20
+  trigger:
+    - platform: state
+      entity_id: input_button.bigmi_simulate_guest_arrival
+  condition:
+    - condition: state
+      entity_id: input_boolean.bigmi_rental_mode
+      state: "on"
+  action:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_guest_welcome
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Guest arrival processed through runtime trace
+    - action: persistent_notification.create
+      data:
+        title: Bigmi Rental Automation
+        message: Guest arrival flow executed for the current rental mode demo.
+  mode: single
+
+- id: bigmi_sensitive_unlock_request
+  alias: Bigmi Sensitive Unlock Request
+  description: High-privilege operation that always requires approval.
+  trace:
+    stored_traces: 20
+  trigger:
+    - platform: state
+      entity_id: input_button.bigmi_request_sensitive_unlock
+  condition:
+    - condition: state
+      entity_id: input_boolean.bigmi_safety_guard
+      state: "on"
+  action:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_sensitive_unlock_pending
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Sensitive unlock requested and queued for approval
+    - action: persistent_notification.create
+      data:
+        title: Bigmi Safety Approval Required
+        message: Sensitive unlock is pending. Toggle Admin Approval Granted to continue.
+  mode: single
+
+- id: bigmi_sensitive_unlock_approval
+  alias: Bigmi Approve Sensitive Unlock
+  description: Releases the sensitive command only after manual approval.
+  trace:
+    stored_traces: 20
+  trigger:
+    - platform: state
+      entity_id: input_boolean.bigmi_admin_approval
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.bigmi_sensitive_unlock_pending
+      state: "on"
+  action:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bigmi_smart_lock
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.bigmi_sensitive_unlock_pending
+          - input_boolean.bigmi_admin_approval
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_runtime_action
+      data:
+        value: Sensitive unlock approved and executed
+    - action: persistent_notification.create
+      data:
+        title: Bigmi Safety Guard
+        message: Sensitive unlock passed secondary approval and was executed.
+  mode: single
+
+- id: bigmi_webhook_programming_surface
+  alias: Bigmi Webhook Programming Surface
+  description: Accepts an external HTTP call and forwards it to the Bigmi Python runtime as a custom event.
+  trace:
+    stored_traces: 20
+  trigger:
+    - platform: webhook
+      webhook_id: bigmi_demo_scene
+      allowed_methods:
+        - POST
+        - PUT
+      local_only: true
+  variables:
+    webhook_mode: >
+      {{
+        trigger.json.mode
+        if trigger.json is mapping and 'mode' in trigger.json
+        else (
+          trigger.data.mode
+          if trigger.data is mapping and 'mode' in trigger.data
+          else 'rental'
+        )
+      }}
+    webhook_source: >
+      {{
+        trigger.json.source
+        if trigger.json is mapping and 'source' in trigger.json
+        else (
+          trigger.data.source
+          if trigger.data is mapping and 'source' in trigger.data
+          else 'external-api'
+        )
+      }}
+    webhook_note: >
+      {{
+        trigger.json.note
+        if trigger.json is mapping and 'note' in trigger.json
+        else (
+          trigger.data.note
+          if trigger.data is mapping and 'note' in trigger.data
+          else 'Webhook accepted by Home Assistant'
+        )
+      }}
+  action:
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.bigmi_last_program_payload
+      data:
+        value: >
+          mode={{ webhook_mode }} source={{ webhook_source }} note={{ webhook_note }}
+    - event: bigmi_activate_scene
+      event_data:
+        mode: "{{ webhook_mode }}"
+        source: "{{ webhook_source }}"
+        note: "{{ webhook_note }}"
+        payload:
+          via: webhook
+          method: "{{ trigger.method }}"
+    - action: persistent_notification.create
+      data:
+        title: Bigmi Webhook Accepted
+        message: >
+          Webhook accepted for mode {{ webhook_mode }} from {{ webhook_source }}.
+  mode: single

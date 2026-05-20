@@ -1,0 +1,33 @@
+<svg width="1600" height="520" viewBox="0 0 1600 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="40" x2="1510" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B132B"/>
+      <stop offset="0.38" stop-color="#13315C"/>
+      <stop offset="0.72" stop-color="#134074"/>
+      <stop offset="1" stop-color="#3E5C76"/>
+    </linearGradient>
+    <linearGradient id="card" x1="220" y1="120" x2="1360" y2="410" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#E0FBFC" stop-opacity="0.06"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="520" rx="36" fill="url(#bg)"/>
+  <circle cx="1368" cy="116" r="164" fill="#EE6C4D" fill-opacity="0.18"/>
+  <circle cx="210" cy="430" r="190" fill="#98C1D9" fill-opacity="0.16"/>
+  <rect x="92" y="76" width="1416" height="368" rx="28" fill="url(#card)" stroke="#FFFFFF" stroke-opacity="0.22"/>
+  <text x="144" y="168" fill="#E0FBFC" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="4">BIGMI CONTROL SURFACE</text>
+  <text x="144" y="236" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">Programmable smart space orchestration</text>
+  <text x="144" y="288" fill="#D9EAF4" font-family="Arial, Helvetica, sans-serif" font-size="28">Runtime, studio, marketplace, and safety in one demo-ready console.</text>
+
+  <rect x="146" y="334" width="266" height="72" rx="18" fill="#0FA3B1"/>
+  <text x="176" y="378" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Runtime / Hub</text>
+
+  <rect x="438" y="334" width="238" height="72" rx="18" fill="#F4A261"/>
+  <text x="468" y="378" fill="#0B132B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Studio</text>
+
+  <rect x="702" y="334" width="292" height="72" rx="18" fill="#84A59D"/>
+  <text x="732" y="378" fill="#0B132B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Marketplace</text>
+
+  <rect x="1020" y="334" width="314" height="72" rx="18" fill="#E76F51"/>
+  <text x="1050" y="378" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Safety / Permission</text>
+</svg>
