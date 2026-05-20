@@ -4,13 +4,6 @@ views:
     path: home
     icon: mdi:home-city-outline
     cards:
-      - type: picture
-        image: /local/bigmi-stage.svg
-        tap_action:
-          action: none
-        hold_action:
-          action: none
-
       - type: markdown
         content: |
           # Bigmi
@@ -22,7 +15,19 @@ views:
           - monitor safety posture
           - keep the developer tooling one layer behind the scenes
 
-      - type: horizontal-stack
+      - type: markdown
+        content: |
+          ## How to use
+          1. Use **Quick Launch** for the shortest product demo.
+          2. Open **Space Program** to show room-aware automation.
+          3. Open **Marketplace** to show installable packs.
+          4. Open **Security** to show approvals and guard posture.
+          5. Open **Developer** only when you want to reveal the runtime underneath.
+
+      - type: grid
+        title: Platform Metrics
+        columns: 3
+        square: false
         cards:
           - type: gauge
             entity: sensor.bigmi_connected_ecosystems
@@ -53,7 +58,7 @@ views:
 
       - type: grid
         title: Quick Launch
-        columns: 4
+        columns: 2
         square: false
         cards:
           - type: button
@@ -98,7 +103,7 @@ views:
 
       - type: grid
         title: Signature Experiences
-        columns: 3
+        columns: 2
         square: false
         cards:
           - type: tile
@@ -126,18 +131,29 @@ views:
             tap_action:
               action: toggle
 
-  - title: Spaces
-    path: spaces
+  - title: Space Program
+    path: space-program
     icon: mdi:floor-plan
     cards:
       - type: markdown
         content: |
-          # Space Programs
+          # Space Program
           The apartment is treated as a programmable object instead of a bag of disconnected devices.
 
           Each button below launches a room-aware sequence that advanced users can later modify in Python.
 
-      - type: horizontal-stack
+      - type: markdown
+        content: |
+          ## How to use
+          1. Click **Reset Apartment** before a fresh recording.
+          2. Launch one scenario from **Scenario Library**.
+          3. Watch the room state cards update in sequence.
+          4. Repeat with a second scenario to show the same space can host many programs.
+
+      - type: grid
+        title: Program Metrics
+        columns: 2
+        square: false
         cards:
           - type: gauge
             entity: sensor.bigmi_active_apartment_devices
@@ -160,7 +176,7 @@ views:
 
       - type: grid
         title: Scenario Library
-        columns: 3
+        columns: 2
         square: false
         cards:
           - type: button
@@ -218,7 +234,131 @@ views:
               action: perform-action
               perform_action: script.bigmi_run_work_from_home_mode
 
-      - type: horizontal-stack
+      - type: grid
+        title: Room Highlights
+        columns: 2
+        square: false
+        cards:
+          - type: tile
+            entity: input_boolean.bigmi_entryway_light
+            name: Entryway Light
+            icon: mdi:lightbulb
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_living_room_curtain
+            name: Living Curtain
+            icon: mdi:curtains
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_living_room_ac
+            name: Living AC
+            icon: mdi:air-conditioner
+            color: cyan
+          - type: tile
+            entity: input_boolean.bigmi_living_room_ceiling_light
+            name: Living Ceiling Light
+            icon: mdi:ceiling-light
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_living_room_floor_lamp
+            name: Living Floor Lamp
+            icon: mdi:floor-lamp
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_robot_vacuum_cleaning
+            name: Robot Vacuum
+            icon: mdi:robot-vacuum
+            color: purple
+          - type: tile
+            entity: input_boolean.bigmi_kitchen_pendant_light
+            name: Kitchen Pendant
+            icon: mdi:lightbulb-group
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_bedroom_curtain
+            name: Bedroom Curtain
+            icon: mdi:curtains-closed
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_bedroom_air_purifier
+            name: Bedroom Air
+            icon: mdi:air-purifier
+            color: teal
+          - type: tile
+            entity: input_boolean.bigmi_bedroom_bedside_lamp
+            name: Bedside Lamp
+            icon: mdi:lamp
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_bedroom_night_light
+            name: Bedroom Night Light
+            icon: mdi:lightbulb-night
+            color: purple
+          - type: tile
+            entity: input_boolean.bigmi_bathroom_water_heater
+            name: Water Heater
+            icon: mdi:water-boiler
+            color: red
+          - type: tile
+            entity: input_boolean.bigmi_study_desk_lamp
+            name: Study Desk Lamp
+            icon: mdi:desk-lamp
+            color: green
+          - type: tile
+            entity: input_boolean.bigmi_study_monitor
+            name: Study Monitor
+            icon: mdi:monitor
+            color: cyan
+          - type: tile
+            entity: input_boolean.bigmi_focus_mode
+            name: Focus Mode
+            icon: mdi:target
+            color: teal
+          - type: tile
+            entity: input_boolean.bigmi_doorbell_mute
+            name: Doorbell Mute
+            icon: mdi:bell-off
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_medication_reminder
+            name: Care Reminder
+            icon: mdi:pill
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_fall_sensor_guard
+            name: Fall Sensor Guard
+            icon: mdi:human-cane
+            color: red
+          - type: tile
+            entity: input_boolean.bigmi_pet_feeder
+            name: Pet Feeder
+            icon: mdi:food-drumstick
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_pet_camera
+            name: Pet Camera
+            icon: mdi:cctv
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_guest_checkin_tablet
+            name: Check-in Tablet
+            icon: mdi:tablet-dashboard
+            color: purple
+          - type: tile
+            entity: input_boolean.bigmi_white_noise
+            name: White Noise
+            icon: mdi:speaker-wireless
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_energy_saver_banner
+            name: Saver Banner
+            icon: mdi:leaf
+            color: green
+
+      - type: grid
+        title: Utility Actions
+        columns: 2
+        square: false
         cards:
           - type: button
             name: Reset Apartment
@@ -242,68 +382,10 @@ views:
           - entity: input_text.bigmi_last_room_touched
             name: Last Room Touched
 
-      - type: grid
-        title: Room Highlights
-        columns: 3
-        square: false
-        cards:
-          - type: tile
-            entity: input_boolean.bigmi_entryway_light
-            name: Entryway Light
-            icon: mdi:lightbulb
-            color: amber
-          - type: tile
-            entity: input_boolean.bigmi_living_room_curtain
-            name: Living Curtain
-            icon: mdi:curtains
-            color: blue
-          - type: tile
-            entity: input_boolean.bigmi_living_room_ac
-            name: Living AC
-            icon: mdi:air-conditioner
-            color: cyan
-          - type: tile
-            entity: input_boolean.bigmi_kitchen_pendant_light
-            name: Kitchen Pendant
-            icon: mdi:lightbulb-group
-            color: amber
-          - type: tile
-            entity: input_boolean.bigmi_bedroom_air_purifier
-            name: Bedroom Air
-            icon: mdi:air-purifier
-            color: teal
-          - type: tile
-            entity: input_boolean.bigmi_bathroom_water_heater
-            name: Water Heater
-            icon: mdi:water-boiler
-            color: red
-          - type: tile
-            entity: input_boolean.bigmi_study_monitor
-            name: Study Monitor
-            icon: mdi:monitor
-            color: cyan
-          - type: tile
-            entity: input_boolean.bigmi_doorbell_mute
-            name: Doorbell Mute
-            icon: mdi:bell-off
-            color: amber
-          - type: tile
-            entity: input_boolean.bigmi_medication_reminder
-            name: Care Reminder
-            icon: mdi:pill
-            color: orange
-
   - title: Marketplace
     path: marketplace
     icon: mdi:storefront-outline
     cards:
-      - type: picture
-        image: /local/bigmi-marketplace-stage.svg
-        tap_action:
-          action: none
-        hold_action:
-          action: none
-
       - type: markdown
         content: |
           # Bigmi Marketplace
@@ -311,7 +393,17 @@ views:
 
           The presentation layer is product-first. The implementation layer still rides on `Blueprints` and `HACS` so we can move faster.
 
-      - type: horizontal-stack
+      - type: markdown
+        content: |
+          ## How to use
+          1. Point out the **Featured Packs** as consumer-facing offerings.
+          2. Use **Install Featured Packs** to simulate one-tap adoption.
+          3. Then use **Launch Installed Pack Demos** to show each pack activates a real space program.
+
+      - type: grid
+        title: Marketplace Metrics
+        columns: 2
+        square: false
         cards:
           - type: gauge
             entity: sensor.bigmi_installed_pack_count
@@ -332,22 +424,9 @@ views:
               yellow: 6
               green: 10
 
-      - type: entities
-        title: Marketplace Status
-        show_header_toggle: false
-        entities:
-          - entity: input_text.bigmi_marketplace_last_install
-            name: Last Install Event
-          - entity: input_boolean.bigmi_pack_rental_host_installed
-            name: Rental Host Pack
-          - entity: input_boolean.bigmi_pack_quiet_night_installed
-            name: Quiet Night Pack
-          - entity: input_boolean.bigmi_pack_esports_installed
-            name: Esports Pack
-
       - type: grid
         title: Featured Packs
-        columns: 3
+        columns: 2
         square: false
         cards:
           - type: tile
@@ -383,7 +462,7 @@ views:
 
       - type: grid
         title: Install Featured Packs
-        columns: 3
+        columns: 2
         square: false
         cards:
           - type: button
@@ -425,7 +504,7 @@ views:
 
       - type: grid
         title: Launch Installed Pack Demos
-        columns: 3
+        columns: 2
         square: false
         cards:
           - type: button
@@ -469,13 +548,6 @@ views:
     path: security
     icon: mdi:shield-lock-outline
     cards:
-      - type: picture
-        image: /local/bigmi-security-stage.svg
-        tap_action:
-          action: none
-        hold_action:
-          action: none
-
       - type: markdown
         content: |
           # Security Center
@@ -483,6 +555,14 @@ views:
 
           Today it is powered by Bigmi's approval flow plus a manual `Space Guard` alarm posture.
           For later demos, this is the cleanest place to upgrade into `Alarmo` without changing the story.
+
+      - type: markdown
+        content: |
+          ## How to use
+          1. Use **Request Unlock** to show secondary approval.
+          2. Toggle **Approve Unlock** to release a sensitive command.
+          3. Use **Arm Stay / Arm Away / Trigger Breach** to show guard posture changes.
+          4. Open trace later only if you want the backstage execution graph.
 
       - type: alarm-panel
         entity: alarm_control_panel.bigmi_space_guard
@@ -551,25 +631,10 @@ views:
               action: perform-action
               perform_action: script.bigmi_disarm_space_guard
 
-      - type: markdown
-        content: |
-          **Presentation note**
-
-          - Use `Request Unlock` to show secondary approval.
-          - Use `Trigger Breach` to show a security posture change.
-          - Open the trace later from `Automations & scenes` when you want the colorful execution graph.
-
   - title: Developer
     path: developer
     icon: mdi:console-network
     cards:
-      - type: picture
-        image: /local/bigmi-flow-stage.svg
-        tap_action:
-          action: none
-        hold_action:
-          action: none
-
       - type: markdown
         content: |
           # Developer Console
@@ -582,7 +647,18 @@ views:
           - Node-RED visual flow editor
           - programmable apartment event engine
 
-      - type: horizontal-stack
+      - type: markdown
+        content: |
+          ## How to use
+          1. Trigger one item from **Trigger Matrix**.
+          2. Watch the runtime audit fields update.
+          3. Open Node-RED and show the same runtime can also be driven by visual flows.
+          4. Keep this page for technical Q&A, not the first product reveal.
+
+      - type: grid
+        title: Developer Metrics
+        columns: 3
+        square: false
         cards:
           - type: gauge
             entity: sensor.bigmi_programmable_entry_points
@@ -629,7 +705,7 @@ views:
 
       - type: grid
         title: Trigger Matrix
-        columns: 4
+        columns: 2
         square: false
         cards:
           - type: button
