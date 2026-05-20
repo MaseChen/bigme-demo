@@ -4,3 +4,8 @@ ha/.storage/
 ha/home-assistant_v2.db
 ha/home-assistant.log*
 appdaemon/conf/logs/
+appdaemon/conf/apps/__pycache__/house_program_demo.cpython-310.pyc
+appdaemon/conf/apps/__pycache__/house_program_demo.cpython-312.pyc
+ha/.ha_run.lock
+ha/home-assistant_v2.db-shm
+ha/home-assistant_v2.db-wal
