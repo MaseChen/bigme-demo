@@ -158,3 +158,75 @@ bigmi_reset_apartment_demo:
         program: reset_apartment_demo
         source: apartment-dashboard
         note: Reset apartment state for the next programmable demo
+
+bigmi_run_elder_care_mode:
+  alias: Bigmi Run Elder Care Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: elder_care_mode
+        source: apartment-dashboard
+        note: Activated elder care mode from the apartment scenario library
+
+bigmi_run_energy_saver_mode:
+  alias: Bigmi Run Energy Saver Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: energy_saver_mode
+        source: apartment-dashboard
+        note: Activated energy saver mode from the apartment scenario library
+
+bigmi_run_pet_mode:
+  alias: Bigmi Run Pet Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: pet_mode
+        source: apartment-dashboard
+        note: Activated pet mode from the apartment scenario library
+
+bigmi_run_rental_checkin_mode:
+  alias: Bigmi Run Rental Check-in Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: rental_checkin_mode
+        source: apartment-dashboard
+        note: Activated rental check-in mode from the apartment scenario library
+
+bigmi_run_esports_room_mode:
+  alias: Bigmi Run Esports Room Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: esports_room_mode
+        source: apartment-dashboard
+        note: Activated esports room mode from the apartment scenario library
+
+bigmi_run_cinema_room_mode:
+  alias: Bigmi Run Cinema Room Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: cinema_room_mode
+        source: apartment-dashboard
+        note: Activated cinema room mode from the apartment scenario library
+
+bigmi_run_quiet_night_mode:
+  alias: Bigmi Run Quiet Night Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: quiet_night_mode
+        source: apartment-dashboard
+        note: Activated quiet night mode from the apartment scenario library
+
+bigmi_run_work_from_home_mode:
+  alias: Bigmi Run Work From Home Mode
+  sequence:
+    - event: bigmi_run_house_program
+      event_data:
+        program: work_from_home_mode
+        source: apartment-dashboard
+        note: Activated work from home mode from the apartment scenario library

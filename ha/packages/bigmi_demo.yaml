@@ -88,6 +88,42 @@ input_boolean:
   bigmi_study_desk_lamp:
     name: Study Desk Lamp
     icon: mdi:desk-lamp
+  bigmi_medication_reminder:
+    name: Medication Reminder
+    icon: mdi:pill
+  bigmi_fall_sensor_guard:
+    name: Fall Sensor Guard
+    icon: mdi:human-cane
+  bigmi_pet_feeder:
+    name: Pet Feeder
+    icon: mdi:food-drumstick
+  bigmi_pet_camera:
+    name: Pet Camera
+    icon: mdi:cctv
+  bigmi_guest_checkin_tablet:
+    name: Guest Check-in Tablet
+    icon: mdi:tablet-dashboard
+  bigmi_doorbell_mute:
+    name: Doorbell Mute
+    icon: mdi:bell-off
+  bigmi_white_noise:
+    name: White Noise Speaker
+    icon: mdi:speaker-wireless
+  bigmi_study_monitor:
+    name: Study Monitor
+    icon: mdi:monitor
+  bigmi_focus_mode:
+    name: Focus Mode
+    icon: mdi:target
+  bigmi_bedroom_night_light:
+    name: Bedroom Night Light
+    icon: mdi:lightbulb-night
+  bigmi_entryway_air_freshener:
+    name: Entryway Air Freshener
+    icon: mdi:spray
+  bigmi_energy_saver_banner:
+    name: Energy Saver Banner
+    icon: mdi:leaf
 
 input_button:
   bigmi_simulate_guest_arrival:
@@ -108,6 +144,30 @@ input_button:
   bigmi_reset_apartment_demo:
     name: Reset Apartment Demo
     icon: mdi:restore
+  bigmi_run_elder_care_mode:
+    name: Run Elder Care Mode
+    icon: mdi:human-cane
+  bigmi_run_energy_saver_mode:
+    name: Run Energy Saver Mode
+    icon: mdi:leaf
+  bigmi_run_pet_mode:
+    name: Run Pet Mode
+    icon: mdi:paw
+  bigmi_run_rental_checkin_mode:
+    name: Run Rental Check-in Mode
+    icon: mdi:key-variant
+  bigmi_run_esports_room_mode:
+    name: Run Esports Room Mode
+    icon: mdi:controller
+  bigmi_run_cinema_room_mode:
+    name: Run Cinema Room Mode
+    icon: mdi:projector-screen
+  bigmi_run_quiet_night_mode:
+    name: Run Quiet Night Mode
+    icon: mdi:weather-night
+  bigmi_run_work_from_home_mode:
+    name: Run Work From Home Mode
+    icon: mdi:laptop
 
 input_select:
   bigmi_primary_ecosystem:
@@ -230,7 +290,19 @@ template:
               is_state('input_boolean.bigmi_bedroom_air_purifier', 'on'),
               is_state('input_boolean.bigmi_bedroom_bedside_lamp', 'on'),
               is_state('input_boolean.bigmi_bathroom_water_heater', 'on'),
-              is_state('input_boolean.bigmi_study_desk_lamp', 'on')
+              is_state('input_boolean.bigmi_study_desk_lamp', 'on'),
+              is_state('input_boolean.bigmi_medication_reminder', 'on'),
+              is_state('input_boolean.bigmi_fall_sensor_guard', 'on'),
+              is_state('input_boolean.bigmi_pet_feeder', 'on'),
+              is_state('input_boolean.bigmi_pet_camera', 'on'),
+              is_state('input_boolean.bigmi_guest_checkin_tablet', 'on'),
+              is_state('input_boolean.bigmi_doorbell_mute', 'on'),
+              is_state('input_boolean.bigmi_white_noise', 'on'),
+              is_state('input_boolean.bigmi_study_monitor', 'on'),
+              is_state('input_boolean.bigmi_focus_mode', 'on'),
+              is_state('input_boolean.bigmi_bedroom_night_light', 'on'),
+              is_state('input_boolean.bigmi_entryway_air_freshener', 'on'),
+              is_state('input_boolean.bigmi_energy_saver_banner', 'on')
             ] | select('eq', true) | list | count
           }}
 
@@ -297,6 +369,14 @@ group:
     name: Apartment Controls
     entities:
       - input_button.bigmi_run_owner_arrives_home_program
+      - input_button.bigmi_run_elder_care_mode
+      - input_button.bigmi_run_energy_saver_mode
+      - input_button.bigmi_run_pet_mode
+      - input_button.bigmi_run_rental_checkin_mode
+      - input_button.bigmi_run_esports_room_mode
+      - input_button.bigmi_run_cinema_room_mode
+      - input_button.bigmi_run_quiet_night_mode
+      - input_button.bigmi_run_work_from_home_mode
       - input_button.bigmi_reset_apartment_demo
       - input_text.bigmi_house_program_status
       - input_text.bigmi_last_room_touched
@@ -307,6 +387,7 @@ group:
     entities:
       - input_boolean.bigmi_owner_home
       - input_boolean.bigmi_entryway_light
+      - input_boolean.bigmi_entryway_air_freshener
 
   bigmi_room_living_room:
     name: Living Room
@@ -328,6 +409,7 @@ group:
       - input_boolean.bigmi_bedroom_curtain
       - input_boolean.bigmi_bedroom_air_purifier
       - input_boolean.bigmi_bedroom_bedside_lamp
+      - input_boolean.bigmi_bedroom_night_light
 
   bigmi_room_bathroom:
     name: Bathroom
@@ -338,3 +420,17 @@ group:
     name: Study
     entities:
       - input_boolean.bigmi_study_desk_lamp
+      - input_boolean.bigmi_study_monitor
+      - input_boolean.bigmi_focus_mode
+
+  bigmi_room_support:
+    name: Support Systems
+    entities:
+      - input_boolean.bigmi_medication_reminder
+      - input_boolean.bigmi_fall_sensor_guard
+      - input_boolean.bigmi_pet_feeder
+      - input_boolean.bigmi_pet_camera
+      - input_boolean.bigmi_guest_checkin_tablet
+      - input_boolean.bigmi_doorbell_mute
+      - input_boolean.bigmi_white_noise
+      - input_boolean.bigmi_energy_saver_banner

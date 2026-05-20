@@ -89,6 +89,12 @@ curl -X POST http://localhost:8123/api/webhook/bigmi_demo_scene \
   -d '{"mode":"rental","source":"curl","note":"External API demo"}'
 ```
 
+Windows PowerShell 可改用：
+
+```powershell
+Invoke-RestMethod -Method Post -Uri "http://localhost:8123/api/webhook/bigmi_demo_scene" -ContentType "application/json" -Body '{"mode":"rental","source":"powershell","note":"External API demo"}'
+```
+
 观察点：
 
 - `Last Program Payload` 会记录 mode、source、note

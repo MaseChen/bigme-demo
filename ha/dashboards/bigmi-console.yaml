@@ -419,8 +419,18 @@ views:
           - Bathroom
           - Study
 
-          The main programmable scenario is **Owner Arrives Home**.
-          It stops the vacuum, lights the path, opens the main curtain, starts climate control, and preheats hot water in a staged sequence.
+          It is not a collection of isolated toggles. It is a programmable apartment object with a reusable scenario library.
+
+          Demo scenarios available here:
+          - Owner Arrives Home
+          - Elder Care
+          - Energy Saver
+          - Pet Mode
+          - Rental Check-in
+          - Esports Room
+          - Cinema Room
+          - Quiet Night
+          - Work From Home
 
       - type: horizontal-stack
         cards:
@@ -428,11 +438,11 @@ views:
             entity: sensor.bigmi_active_apartment_devices
             name: Active Devices
             min: 0
-            max: 12
+            max: 25
             severity:
-              green: 4
-              yellow: 8
-              red: 11
+              green: 6
+              yellow: 14
+              red: 20
           - type: gauge
             entity: sensor.bigmi_local_roundtrip_latency
             name: Local Latency
@@ -452,7 +462,10 @@ views:
               yellow: 3
               green: 4
 
-      - type: horizontal-stack
+      - type: grid
+        title: Scenario Library
+        columns: 3
+        square: false
         cards:
           - type: button
             name: Owner Arrives Home
@@ -463,6 +476,81 @@ views:
             hold_action:
               action: more-info
               entity: script.bigmi_run_owner_arrives_home_program
+          - type: button
+            name: Elder Care
+            icon: mdi:human-cane
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_elder_care_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_elder_care_mode
+          - type: button
+            name: Energy Saver
+            icon: mdi:leaf
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_energy_saver_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_energy_saver_mode
+          - type: button
+            name: Pet Mode
+            icon: mdi:paw
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_pet_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_pet_mode
+          - type: button
+            name: Rental Check-in
+            icon: mdi:key-variant
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_rental_checkin_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_rental_checkin_mode
+          - type: button
+            name: Esports Room
+            icon: mdi:controller
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_esports_room_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_esports_room_mode
+          - type: button
+            name: Cinema Room
+            icon: mdi:projector-screen
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_cinema_room_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_cinema_room_mode
+          - type: button
+            name: Quiet Night
+            icon: mdi:weather-night
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_quiet_night_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_quiet_night_mode
+          - type: button
+            name: Work From Home
+            icon: mdi:laptop
+            tap_action:
+              action: perform-action
+              perform_action: script.bigmi_run_work_from_home_mode
+            hold_action:
+              action: more-info
+              entity: script.bigmi_run_work_from_home_mode
+
+      - type: horizontal-stack
+        cards:
           - type: button
             name: Reset Apartment
             icon: mdi:restore
@@ -503,6 +591,11 @@ views:
             name: Entryway Light
             icon: mdi:lightbulb
             color: amber
+          - type: tile
+            entity: input_boolean.bigmi_entryway_air_freshener
+            name: Air Freshener
+            icon: mdi:spray
+            color: teal
 
       - type: grid
         title: Living Room
@@ -534,6 +627,26 @@ views:
             name: Robot Vacuum
             icon: mdi:robot-vacuum
             color: purple
+          - type: tile
+            entity: input_boolean.bigmi_pc_power
+            name: Gaming PC
+            icon: mdi:desktop-classic
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_ambient_strip
+            name: Ambient Strip
+            icon: mdi:led-strip-variant
+            color: pink
+          - type: tile
+            entity: input_boolean.bigmi_projector_power
+            name: Projector
+            icon: mdi:projector
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_guest_welcome
+            name: Guest Welcome
+            icon: mdi:account-check
+            color: green
 
       - type: grid
         title: Kitchen, Bedroom, Bathroom, Study
@@ -561,6 +674,11 @@ views:
             icon: mdi:lamp
             color: orange
           - type: tile
+            entity: input_boolean.bigmi_bedroom_night_light
+            name: Night Light
+            icon: mdi:lightbulb-night
+            color: purple
+          - type: tile
             entity: input_boolean.bigmi_bathroom_water_heater
             name: Water Heater
             icon: mdi:water-boiler
@@ -570,6 +688,62 @@ views:
             name: Study Desk Lamp
             icon: mdi:desk-lamp
             color: green
+          - type: tile
+            entity: input_boolean.bigmi_study_monitor
+            name: Study Monitor
+            icon: mdi:monitor
+            color: cyan
+          - type: tile
+            entity: input_boolean.bigmi_focus_mode
+            name: Focus Mode
+            icon: mdi:target
+            color: teal
+
+      - type: grid
+        title: Support Systems
+        columns: 3
+        square: false
+        cards:
+          - type: tile
+            entity: input_boolean.bigmi_medication_reminder
+            name: Medication Reminder
+            icon: mdi:pill
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_fall_sensor_guard
+            name: Fall Sensor Guard
+            icon: mdi:human-cane
+            color: red
+          - type: tile
+            entity: input_boolean.bigmi_pet_feeder
+            name: Pet Feeder
+            icon: mdi:food-drumstick
+            color: orange
+          - type: tile
+            entity: input_boolean.bigmi_pet_camera
+            name: Pet Camera
+            icon: mdi:cctv
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_guest_checkin_tablet
+            name: Check-in Tablet
+            icon: mdi:tablet-dashboard
+            color: purple
+          - type: tile
+            entity: input_boolean.bigmi_doorbell_mute
+            name: Doorbell Mute
+            icon: mdi:bell-off
+            color: amber
+          - type: tile
+            entity: input_boolean.bigmi_white_noise
+            name: White Noise
+            icon: mdi:speaker-wireless
+            color: blue
+          - type: tile
+            entity: input_boolean.bigmi_energy_saver_banner
+            name: Saver Banner
+            icon: mdi:leaf
+            color: green
 
       - type: markdown
         content: |
@@ -577,11 +751,13 @@ views:
 
           Advanced users can edit the program in:
 
-          - `/Users/jarason/Documents/code/bigme-demo/appdaemon/conf/apps/house_program_demo.py`
+          - `appdaemon/conf/apps/house_program_demo.py`
 
           The easiest extension points are:
           - `ROOMS`: define room structure
+          - `PROGRAMS`: add or remove scenario programs
           - `PROGRAMS["owner_arrives_home"]["steps"]`: add, remove, or reorder device actions
+          - follow the same structure for elder care, energy saver, pet, rental, esports, cinema, quiet night, and work-from-home modes
 
       - type: history-graph
         title: Apartment Device Timeline
